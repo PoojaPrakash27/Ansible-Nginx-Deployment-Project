@@ -1,6 +1,6 @@
 ---
 - name: install nginx on webservers and launch the index.html file
-  hosts: manage-node-1
+  hosts: manage-nodes
   become: true
   roles:
-    - test
+    - nginx

@@ -1,10 +1,51 @@
 ---
-- name: install nginx
+- name: install nginx on manage-node-1 and manage-node-2
   ansible.builtin.apt:
     name: nginx
     state: present
-- name: copy the index.html to launch it
+  when: 
+    ansible_facts['pkg_mgr']=='apt'
+
+- name: install nginx on manage-node-3
+  ansible.builtin.dnf:
+    name: nginx
+    state: present
+  when: 
+    ansible_facts['pkg_mgr']=='dnf'
+
+- name: start and enable nginx on manage-node-3
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: yes
+  when: 
+    ansible_facts['pkg_mgr']=='dnf'  
+
+- name: install nginx on manage-node-4
+  ansible.builtin.command: sudo amazon-linux-extras install nginx1 -y
+  when: 
+    ansible_facts['pkg_mgr']=='yum'
+
+- name: start and enable nginx on manage-node-4
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: yes
+  when: 
+    ansible_facts['pkg_mgr']=='yum'
+    
+- name: copy the index.html to manage-node-1 and manage-node-2
   ansible.builtin.copy:
     src: files/index.html
     dest: /var/www/html
     mode: "0644"
+  when:
+    ansible_facts['pkg_mgr']=='apt'
+
+- name: copy the index.html to launch manage-node-3 and manage-node-4
+  ansible.builtin.copy:
+    src: files/index.html
+    dest: /usr/share/nginx/html
+    mode: "0644"
+  when:
+    ansible_facts['pkg_mgr']=='dnf' or ansible_facts['pkg_mgr']=='yum'
