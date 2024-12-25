@@ -2,36 +2,28 @@
 
 ## Overview
 
-This project demonstrates the use of Ansible to automate the deployment of Nginx and a static web application across multiple EC2 instances. It showcases best practices in infrastructure as code, configuration management, and automated deployment strategies.
+This project demonstrates the use of Ansible to automate the deployment of Nginx and a static web application across multiple EC2 instances each running a different distribution/OS including Ubuntu, Red Hat Enterprise Linux (RHEL), and Amazon Linux 2. It showcases best practices in infrastructure as code, configuration management, and automated deployment strategies.
 
 ## Features
 
 - Automated Nginx installation on multiple EC2 instances
 - Deployment of a static web application
 - Scalable and reusable Ansible playbooks
-- EC2 instance configuration management
 
 ## Prerequisites
 
-- Ansible 2.9 or higher
+- Ansible 2.13 or higher
 - AWS account with EC2 instances
-- Python 3.6 or higher
-- boto3 library for AWS interaction
+- Python 3.8 or higher
 
 ## Project Structure
 
 ```
 .
-├── ansible.cfg
-├── inventory
-│   └── hosts
-├── playbooks
-│   ├── main.yml
-│   ├── nginx_install.yml
-│   └── webapp_deploy.yml
+├── inventory.ini
+├── setup_nginx.yml
 ├── roles
 │   ├── nginx
-│   └── webapp
 └── README.md
 ```
 
@@ -43,7 +35,7 @@ This project demonstrates the use of Ansible to automate the deployment of Nginx
    git clone https://github.com/yourusername/ansible-nginx-project.git
    ```
 
-2. Update the `inventory/hosts` file with your EC2 instance details.
+2. Update the `inventory.ini' file with your EC2 instance details.
 
 3. Ensure your AWS credentials are properly configured.
 
@@ -52,7 +44,7 @@ This project demonstrates the use of Ansible to automate the deployment of Nginx
 Run the main playbook:
 
 ```
-ansible-playbook playbooks/main.yml
+ansible-playbook -i inventory.ini setup_nginx.yml
 ```
 
 This will execute the following tasks:
@@ -62,5 +54,4 @@ This will execute the following tasks:
 
 ## Customization
 
-- Modify `roles/nginx/templates/nginx.conf.j2` to customize Nginx configuration
-- Update `roles/webapp/files/` with your static web application files
+- Update `nginx/files/` with your static web application files
