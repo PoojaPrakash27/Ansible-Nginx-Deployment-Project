@@ -32,7 +32,7 @@ This project demonstrates the use of Ansible to automate the deployment of Nginx
 1. Clone this repository:
 
    ```
-   git clone https://github.com/yourusername/ansible-nginx-project.git
+   git clone https://github.com/PoojaPrakash27/ansible-nginx-project.git
    ```
 
 2. Update the `inventory.ini' file with your EC2 instance details.
